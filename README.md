@@ -33,8 +33,19 @@ Download datasets : [Link](https://drive.google.com/file/d/1vlF2FGzOncIt8bJS5Zh6
 ## ISSUES
 - Data in together group K-Mean (level-quantiles) is a element. You'll see this Warning, to disable that Warning you can add `-W ignore` before `function.py`  
     ![Architecture](./src/image2.png)
-
-
+## TIME TRAINING
+- Framingham Heart Disease datasets  
+    ![acc-h](./src/acc-h.png)
+    ![f1-h](./src/f1-h.png)
+    ![pre-h](./src/pre-h.png)
+    ![re-h](./src/re-h.png)
+    ![time-h](./src/time-h.png)
+- German Credit datasets
+    ![acc-g](./src/acc.png)
+    ![f1-g](./src/f1.png)
+    ![pre-g](./src/pre.png)
+    ![re-g](./src/re.png)
+    ![time-g](./src/time.png)
 ## NOTE
 If you don't select threshold, output model is accuracy of original logistic regression which is provided by sklearn library
 ```python
