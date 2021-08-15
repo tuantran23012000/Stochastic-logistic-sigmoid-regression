@@ -22,7 +22,7 @@ class S_L_R():
         self.pro=0
         self.weight=[]
         self.list_k=[]
-
+        self.epsi=[]
     def laplace_inv(self,k):
 
         arr=[]
@@ -109,12 +109,13 @@ class S_L_R():
         tmp=0
         best_w=0
         count=-1
-
+        
         ret = True
         while flag:
             try:
                 self.weight=[]
                 self.list_k=[]
+                self.epsi=[]
                 count+=1
                 print("Loop : ",count)
                 if count== max_loop:
@@ -129,6 +130,7 @@ class S_L_R():
                     self.list_k.append(k/100)
                     x=self.model(meanA,varA,k/100,m,n_v,y_mu,alpha)
                     W=np.array(x)
+                    self.epsi.append(W[n_v:,])
                     W=W[0:n_v,:]
                     self.weight.append(W)
                     X_val["bias"]=1
@@ -153,7 +155,7 @@ class S_L_R():
             except:
                 continue
         self.pro=pro
-        return self.weight,self.list_k,ret
+        return self.weight,self.list_k,self.epsi,meanA,ret
 
     def weight_eval(self,X_train,y_train,n_c,n_v,alpha,option):
 
@@ -341,7 +343,7 @@ class S_L_R():
 
         else:
             flag=True
-            weight_all,list_k,ret=self.weight_train(X_train,X_val,y_scoring,y_val,n_c,n_v,alpha_,option,max_loop,threshold)
+            weight_all,list_k,epsi,mA,ret=self.weight_train(X_train,X_val,y_scoring,y_val,n_c,n_v,alpha_,option,max_loop,threshold)
             if ret:
                 for item in weight_all:
                     g=self.predict(item,X_val)
@@ -353,7 +355,7 @@ class S_L_R():
                 flag=False
                 print("Try lower threshold !")
         print("Complete training !")
-        return weight_all,list_k,acc_s,f1_s,p_s,r_s,g_w,flag
+        return weight_all,list_k,acc_s,f1_s,p_s,r_s,g_w,epsi,mA,flag
 
     def eval(self,X_train,X_test,X_val,y_train,y_test,y_val,n_v,alpha,option,min_iters,max_iters):
 
