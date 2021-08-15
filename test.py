@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import argparse
 from sklearn.preprocessing import StandardScaler
 import os
-
+import seaborn as sns
 parser = argparse.ArgumentParser()
 parser.add_argument("--state",type=str,default=False,required=False)
 parser.add_argument("--path_data", type = str, default = False,required=False)
@@ -44,10 +44,14 @@ X_val = pd.DataFrame(data=X_val, columns=X.columns)
 def run_train(X_train,X_test,X_val,y_train,y_test,y_val,n_c,n_v,alpha,option,max_loop,threshold=None):
 
     slr=S_L_R()
-    weight_all,list_k,acc_s,f1_s,p_s,r_s,g_w,ret=slr.train(X_train,X_val,X_val,y_train,y_test,y_val,n_c,n_v,alpha,option,max_loop,threshold)
+    weight_all,list_k,acc_s,f1_s,p_s,r_s,g_w,epsi,mA,ret=slr.train(X_train,X_val,X_val,y_train,y_test,y_val,n_c,n_v,alpha,option,max_loop,threshold)
     if ret:
         index= np.argmax(acc_s)
         g_w=np.reshape(np.array(g_w),(len(g_w),1))
+        w_x=[]
+        for i in range(0,n_c):
+            w_x.append(np.dot(mA[i,0:n_v],np.array(weight_all[index])).tolist())
+        c=w_x-epsi[index]
         acc_g = slr.accuracy(slr.predict(weight_all[index],X_val),y_val) 
         f1_g = slr.f1_score(slr.predict(g_w,X_val),y_val)
         p_g = slr.precision_score(slr.predict(g_w,X_val),y_val)
