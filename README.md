@@ -17,10 +17,10 @@ Download datasets : [Link](https://drive.google.com/file/d/1vlF2FGzOncIt8bJS5Zh6
 ## TRAINING
 - K-Means clustering algorithm:
     ```python
-    python test.py --state train --path_data <path to dataset> --n_clus <number of cluters> --alpha <alpha> --option Kmean --threshold <not default>
+    python test.py --state train --path_data <path to dataset> --n_clus <number of cluters> --alpha <alpha> --option Kmean --threshold <not default> --max_loop<max training loop>
 - Approximate q-quantiles algorithm:
     ```python
-    python test.py --state train --path_data <path to dataset> --n_clus <number of cluters> --alpha <alpha> --option Quantile --threshold <not default>
+    python test.py --state train --path_data <path to dataset> --n_clus <number of cluters> --alpha <alpha> --option Quantile --threshold <not default> --max_loop<max training loop>
 
 ## EVALUATION
 - Evaluate accuracy, f1 score, precision score, recall socre with number of clusters (level-quantiles) and time training:
