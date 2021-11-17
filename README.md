@@ -1,4 +1,4 @@
-# Stochastic sigmoid logistic regression
+# Stochastic logistic sigmoid regression
 
 ## SLR
 ![Architecture](./src/image.png)
